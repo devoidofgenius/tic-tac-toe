@@ -1,11 +1,14 @@
 import React from 'react';
+import Board from './Board';
 import '../css/TicTacToe.css';
 
 class TicTacToe extends React.Component {
   render() {
     return(
       <div className="app-wrapper">
-        <h1>Tic Tac Toe</h1>
+        <div className="board">
+          <Board />
+        </div>
       </div>
     )
   }
