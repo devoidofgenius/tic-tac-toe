@@ -1,5 +1,6 @@
 import React from 'react';
 import Square from './Square';
+import { calculateWinner } from '../helpers';
 import '../css/Board.css';
 
 class Board extends React.Component {
@@ -17,6 +18,9 @@ class Board extends React.Component {
 
   handleClick(i) {
     const squares = this.state.squares.slice();
+    if (calculateWinner(squares) || squares[i]) {
+      return;
+    }
     squares[i] = this.state.xTurn ? 'X' : 'O';
     this.setState({
       squares: squares,
@@ -25,7 +29,15 @@ class Board extends React.Component {
     console.log("clicked");
   }
 
+  emptySpaces() {
+    return this.state.squares.map((square) => square === null ? "?" : square);
+  }
+
   render() {
+    const winner = calculateWinner(this.state.squares);
+    if (winner) {
+      alert("WINNER");
+    }
     return(
       <div>
         <div className="row">
@@ -43,6 +55,7 @@ class Board extends React.Component {
           {this.renderGameSquare(7)}
           {this.renderGameSquare(8)}
         </div>
+        <h1>{this.emptySpaces()}</h1>
       </div>
     )
   }
